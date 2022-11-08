@@ -74,14 +74,12 @@ for(i = 0; i < posts.length; i++){
     if(singlePost.author.image == null){
         post.querySelector(`.profile-pic`).innerHTML = `LF`;
     }
-     
     let  btn = post.getElementById(`likes__cta`);
-    btn.setAttribute(`data-postid`, singlePost.id);
+    const id = singlePost.id;
     
-    const id = btn.getAttribute(`data-postid`);
     let green = post.querySelector(`.js-like-button`);
     btn.addEventListener(`click`, function(){
-     
+     console.log(id)
           if( !idLike.includes(id)){
                  green.classList.add("like-button--liked");
                 likes.innerHTML = Number(likes.innerHTML) + 1;
