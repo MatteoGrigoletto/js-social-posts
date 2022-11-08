@@ -12,7 +12,7 @@ const posts = [
     },
     {
         "id": 2,
-        "content": "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
+        "content": " ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
         "media": "https://unsplash.it/600/400?image=112",
         "author": {
             "name": "Sofia Perlari",
@@ -56,10 +56,22 @@ const posts = [
     }
 ];
  
+const postList = document.getElementById(`container`);
 
-const post = document.getElementById(`post`);
 
 for(i = 0; i < posts.length; i++){
     let singlePost = posts[i];
-    console.log(singlePost)
-}
+    const post = document.getElementById(`post`).content.cloneNode(true);
+    
+    post.querySelector(`.post-meta__author`).innerHTML = singlePost.author.name;
+    post.querySelector(`.post-meta__time`).innerHTML = singlePost.created;
+    post.querySelector(`.post__text`).innerHTML = singlePost.content;
+    post.querySelector(`.post__image`).innerHTML = `<img src =${singlePost.media}>`
+    post.querySelector(`.js-likes-counter`).innerHTML = singlePost.likes;
+
+    postList.append(post);
+    }
+
+
+
+
