@@ -59,14 +59,9 @@ const posts = [
 let feed =[];
 const postList = document.getElementById(`container`);
 
-
-
 for(i = 0; i < posts.length; i++){
     let singlePost = posts[i];
-   
     const post = document.getElementById(`post`).content.cloneNode(true);
-
-   
 
     post.querySelector(`.post-meta__author`).innerHTML = singlePost.author.name;
     post.querySelector(`.post-meta__time`).innerHTML = singlePost.created;
@@ -76,28 +71,31 @@ for(i = 0; i < posts.length; i++){
     likes.innerHTML = Number(singlePost.likes);
     post.querySelector(`.profile-pic`).innerHTML = `<img src = ${singlePost.author.image}>`;
   
-
     if(singlePost.author.image == null){
         post.querySelector(`.profile-pic`).innerHTML = `LF`;
     }
-    postList.append(post);
+     
+    let  btn = post.getElementById(`likes__cta`);
+    btn.setAttribute(`data-postid`, singlePost.id);
     
-    let  btn = document.getElementById(`likes__cta`);
+    const id = btn.getAttribute(`data-postid`);
+    let green = post.querySelector(`.js-like-button`);
     btn.addEventListener(`click`, function(){
-     let green =  document.getElementById(`js-like-button`);
-          if( !green.classList.contains(`like-button--liked`)){
-                green.classList.add(`like-button--liked`);
+     
+          if( !feed.includes(id)){
+                 green.classList.add("like-button--liked");
                 likes.innerHTML = Number(likes.innerHTML) + 1;
-                if(!feed.includes(singlePost.id)){
-                    feed.push(singlePost.id);
-                }
+                    feed.push(id);
+                    console.log(feed)            
              }
-             else if( green.classList.contains(`like-button--liked`)){
-            document.getElementById(`js-like-button`).classList.remove(`like-button--liked`);
-            likes.innerHTML = Number(likes.innerHTML) - 1;
-        }
+             else {
+                green.classList.remove("like-button--liked");
+                likes.innerHTML=Number(likes.innerHTML)-1;
+                feed.splice(feed.indexOf(id),1);
+        }   
     })
-    }
+    postList.append(post);
+}
     
    
     
