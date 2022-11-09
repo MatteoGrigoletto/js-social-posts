@@ -1,3 +1,4 @@
+`use strict`;
 const posts = [
     {
         "id": 1,
@@ -62,36 +63,36 @@ const postList = document.getElementById(`container`);
 for(i = 0; i < posts.length; i++){
     let singlePost = posts[i];
     const post = document.getElementById(`post`).content.cloneNode(true);
-
+    
+ 
     post.querySelector(`.post-meta__author`).innerHTML = singlePost.author.name;
-    post.querySelector(`.post-meta__time`).innerHTML = singlePost.created;
+    post.querySelector(`.post-meta__time`).innerHTML =  new Date (singlePost.created).toLocaleDateString();
     post.querySelector(`.post__text`).innerHTML = singlePost.content;
-    post.querySelector(`.post__image`).innerHTML = `<img src =${singlePost.media}>`
+    post.querySelector(`.post__image`).src = singlePost.media;
     let likes = post.querySelector(`.js-likes-counter`);
     likes.innerHTML = singlePost.likes;
-    post.querySelector(`.profile-pic`).innerHTML = `<img src = ${singlePost.author.image}>`;
-  
+    post.querySelector(`.profile-pic`).src = singlePost.author.image;
+
     if(singlePost.author.image == null){
-        post.querySelector(`.profile-pic`).innerHTML = `LF`;
+    post.querySelector(`.post-meta__icon`).innerHTML = `LF`;
     }
     let  btn = post.getElementById(`likes__cta`);
     const id = singlePost.id;
     
     let green = post.querySelector(`.js-like-button`);
     btn.addEventListener(`click`, function(){
-     console.log(id)
+    
           if( !idLike.includes(id)){
                  green.classList.add("like-button--liked");
                 likes.innerHTML = Number(likes.innerHTML) + 1;
-                    idLike.push(id);
-                    console.log(idLike)            
+                    idLike.push(id);          
              }
              else {
                 green.classList.remove("like-button--liked");
-                likes.innerHTML=Number(likes.innerHTML)-1;
+                likes.innerHTML=Number(likes.innerHTML) - 1;
                 idLike.splice(idLike.indexOf(id),1);
-        }   
-    })
+            }   
+        })
     postList.append(post);
 }
     
